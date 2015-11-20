@@ -19,11 +19,9 @@ public class Partida implements Serializable{
     private Competicao competicao;
     
     @ManyToOne
-    @Column(nullable = false)
     private Equipe equipeA;
     
     @ManyToOne
-    @Column(nullable = false)
     private Equipe equipeB;
     
     @Column(nullable = false)

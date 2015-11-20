@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Equipe implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @Id
+    @Id @GeneratedValue
     private long id;
     
     @Column(nullable = false, length = 40)

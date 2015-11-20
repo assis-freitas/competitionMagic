@@ -51,7 +51,7 @@ public class CompeticaoService {
             return Response.status(Response.Status.OK).
                     entity("true").build();
         } 
-catch (ConstraintViolationException cve) {           
+        catch (ConstraintViolationException cve) {           
             em.getTransaction().rollback();
             throw new Exception("Violação de Restrição de Integridade!");            
         }
@@ -66,12 +66,12 @@ catch (ConstraintViolationException cve) {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response alterar(Competicao grupo) {
+    public Response alterar(Competicao competicao) {
         try {
             em.getTransaction().begin();
-            grupo = em.merge(grupo); //gerará o update no SGBD
+            competicao = em.merge(competicao); //gerará o update no SGBD
             em.getTransaction().commit();
-            System.out.println("Competição " + grupo.getDescricao() + " alterado com sucesso");
+            System.out.println("Competição " + competicao.getDescricao() + " alterado com sucesso");
             return Response.status(Response.Status.OK).
                     entity("true").build();
         } catch (Exception e) {
