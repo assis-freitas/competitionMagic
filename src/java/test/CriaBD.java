@@ -29,8 +29,8 @@ public class CriaBD {
             em.persist(competicao);
 
             Usuario usuario = new Usuario();
-            usuario.setLogin("admin");
-            usuario.setSenha("admin");
+            usuario.setLogin("assis_freitas");
+            usuario.setSenha("123");
             usuario.setStatus(true);
             usuario.setCompeticao(competicao);
             em.persist(usuario);
