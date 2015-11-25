@@ -1,5 +1,7 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import util.JpaUtil;
 import model.*;
@@ -24,16 +26,20 @@ public class CriaBD {
 //            em.persist(produto);
 //            
 
-            Competicao competicao = new Competicao();
-            competicao.setDescricao("Counter Strike: Global Ofensive");
-            em.persist(competicao);
-
+            
             Usuario usuario = new Usuario();
             usuario.setLogin("assis_freitas");
             usuario.setSenha("123");
             usuario.setStatus(true);
-            usuario.setCompeticao(competicao);
             em.persist(usuario);
+            
+            ArrayList<Usuario> usuarioCompeticao = new ArrayList<Usuario>();
+            usuarioCompeticao.add(usuario);
+            
+            Competicao competicao = new Competicao();
+            competicao.setDescricao("Counter Strike: Global Ofensive");
+            competicao.setUsuarios(usuarioCompeticao);
+            em.persist(competicao);
 
             Equipe equipe = new Equipe();
             equipe.setNome("Killers");

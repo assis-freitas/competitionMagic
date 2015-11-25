@@ -5,7 +5,6 @@ import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import model.Competicao;
-import model.Usuario;
 import org.hibernate.exception.ConstraintViolationException;
 import util.JpaUtil;
 
@@ -22,10 +21,9 @@ public class CompeticaoService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Competicao> listaTodos(@PathParam("usuario") long usuario) {
         ArrayList<Competicao> listagem;
-        Usuario objUsuario = new UsuarioService().listaPeloId(usuario).get(0);
         Query sql = em.createQuery(
-                "select c from Competicao c where c.id = :usuario", Competicao.class);
-        sql.setParameter("usuario", objUsuario.getCompeticao().getId());
+                "select c from Competicao c inner join c.usuarios u where u.id = :usuario", Competicao.class);
+        sql.setParameter("usuario", usuario);
         listagem = (ArrayList<Competicao>) sql.getResultList();
         return listagem;
     }
@@ -36,8 +34,9 @@ public class CompeticaoService {
     public List<Competicao> listaPeloId(@PathParam("id") long id, @PathParam("usuario") long usuario) {
         ArrayList<Competicao> listagem;
         Query sql = em.createQuery(
-                "select c from Competicao c where c.id = :id", Competicao.class);
+                "select c from Competicao c inner join c.usuarios u where c.id = :id and u.id = :usuario", Competicao.class);
         sql.setParameter("id", id);
+        sql.setParameter("usuario", usuario);
         listagem = (ArrayList<Competicao>) sql.getResultList();
         return listagem;
     }

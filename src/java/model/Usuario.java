@@ -17,8 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
         columns = {
             @ColumnResult(name = "id"),
             @ColumnResult(name = "login"),
-            @ColumnResult(name = "status"),
-            @ColumnResult(name = "competicao_id")}
+            @ColumnResult(name = "status")}
 )
 
 public class Usuario implements Serializable {
@@ -38,8 +37,6 @@ public class Usuario implements Serializable {
     private Date dataCriacao;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
-    @ManyToOne
-    private Competicao competicao;
     /* Tratando a data de inclusao e data de alteracao */
 
     @PrePersist
@@ -52,14 +49,6 @@ public class Usuario implements Serializable {
         dataAlteracao = new Date();
     }
     
-    public Competicao getCompeticao() {
-        return competicao;
-    }
-
-    // Alt+Insert, selecionar getter e setter
-    public void setCompeticao(Competicao competicao) {    
-        this.competicao = competicao;
-    }
 
     public long getId() {
         return id;

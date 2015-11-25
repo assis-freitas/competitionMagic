@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,6 +19,9 @@ public class Competicao implements Serializable{
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
+    
+    @ManyToMany
+    private List<Usuario> usuarios;
     
     @PrePersist
     protected void onCreate(){
@@ -47,5 +51,12 @@ public class Competicao implements Serializable{
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-    
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
 }
