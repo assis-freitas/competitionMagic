@@ -19,8 +19,7 @@ public class UsuarioService {
     public List<Usuario> listaTodos() {
         ArrayList<Usuario> listagem;
 
-        Query sql = em.createNativeQuery("select u.id, u.login, u.status from Usuario u",
-                "colunasUsuario");
+        Query sql = em.createQuery("select u from Usuario u", Usuario.class);
 
         listagem = (ArrayList<Usuario>) sql.getResultList();
         return listagem;
@@ -31,7 +30,7 @@ public class UsuarioService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Usuario> listaPeloId(@PathParam("id") long id) {
         ArrayList<Usuario> listagem;
-        Query sql = em.createNativeQuery("select u.id, u.login, u.status from Usuario u where u.id = :id",
+        Query sql = em.createNativeQuery("select u.id, u.login, u.status, u.competicao_id from Usuario u where u.id = :id",
                 "colunasUsuario");
         sql.setParameter("id", id);
         listagem = (ArrayList<Usuario>) sql.getResultList();
