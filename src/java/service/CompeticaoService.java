@@ -16,27 +16,24 @@ public class CompeticaoService {
     EntityManager em = JpaUtil.getEntityManager();
 
     
-    @Path("{usuario}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Competicao> listaTodos(@PathParam("usuario") long usuario) {
+    public List<Competicao> listaTodos() {
         ArrayList<Competicao> listagem;
         Query sql = em.createQuery(
-                "select c from Competicao c inner join c.usuarios u where u.id = :usuario", Competicao.class);
-        sql.setParameter("usuario", usuario);
+                "select c from Competicao c inner join c.usuarios u", Competicao.class);
         listagem = (ArrayList<Competicao>) sql.getResultList();
         return listagem;
     }
 
-    @Path("{usuario}/{id}")
+    @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Competicao> listaPeloId(@PathParam("id") long id, @PathParam("usuario") long usuario) {
+    public List<Competicao> listaPeloId(@PathParam("id") long id) {
         ArrayList<Competicao> listagem;
         Query sql = em.createQuery(
-                "select c from Competicao c inner join c.usuarios u where c.id = :id and u.id = :usuario", Competicao.class);
+                "select c from Competicao c inner join c.usuarios u where c.id = :id", Competicao.class);
         sql.setParameter("id", id);
-        sql.setParameter("usuario", usuario);
         listagem = (ArrayList<Competicao>) sql.getResultList();
         return listagem;
     }

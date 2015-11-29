@@ -40,6 +40,11 @@ public class CriaBD {
             competicao.setDescricao("Counter Strike: Global Ofensive");
             competicao.setUsuarios(usuarioCompeticao);
             em.persist(competicao);
+            
+            competicao = new Competicao();
+            competicao.setDescricao("Heroes of the Storm");
+            competicao.setUsuarios(usuarioCompeticao);
+            em.persist(competicao);
 
             Equipe equipe = new Equipe();
             equipe.setNome("Killers");
