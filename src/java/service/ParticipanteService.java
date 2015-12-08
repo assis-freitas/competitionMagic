@@ -26,7 +26,7 @@ public class ParticipanteService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Participante> listaTodos(){
-        Query q = em.createQuery("select p from Participante p", Participante.class);
+        Query q = em.createQuery("select p from Participante p order by p.equipe", Participante.class);
         return q.getResultList();
     }
     
