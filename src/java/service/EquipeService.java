@@ -12,22 +12,28 @@ import util.JpaUtil;
 public class EquipeService {
     private EntityManager em = JpaUtil.getEntityManager();
     
-    @Path("{competicao}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Equipe> listaTodos(@PathParam("competicao") long competicao){
-        Query q = em.createQuery("select e from Equipe e where e.competicao.id = :competicao", Equipe.class);
-        q.setParameter("competicao", competicao);
+        Query q = em.createQuery("select e from Equipe e order by e.competicao", Equipe.class);
         return q.getResultList();
     }
     
-    @Path("{competicao}/{id}")
+    @Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Equipe> listaPeloId(@PathParam("id") long id, @PathParam("competicao") long competicao){
-        Query q = em.createQuery("select e from Equipe e where e.id = :id and e.competicao.id = :competicao", Equipe.class);
+    public List<Equipe> listaPeloId(@PathParam("id") long id){
+        Query q = em.createQuery("select e from Equipe e where e.id = :id", Equipe.class);
         q.setParameter("id", id);
-        q.setParameter("competicao", competicao);
+        return q.getResultList();
+    }
+    
+    @Path("/competicao/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Equipe> listaPelaCompeticao(@PathParam("id") long id){
+        Query q = em.createQuery("select e from Equipe e where e.competicao.id = :id", Equipe.class);
+        q.setParameter("id", id);
         return q.getResultList();
     }
     

@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import model.Usuario;
 import util.JpaUtil;
 
 @Path("/{parameter: login}") //nome do caminho do webservice
@@ -23,12 +24,17 @@ public class LoginService {
     @Produces(MediaType.APPLICATION_JSON)
     public boolean validaLogin(@PathParam("login") String login, @PathParam("senha") String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         boolean retorno = false;
+        
+        
+        
         String sql = "select count(u.login) from Usuario u where u.login = :login and u.senha = :senha and u.status = 1";
         Query q = em.createQuery(sql);
         q.setParameter("login", login);
         String senhaCriptografada = new util.Util().criptografa(senha);
+        
         q.setParameter("senha", senhaCriptografada);
         Long quantidade = (Long) q.getSingleResult();
+        
         if (quantidade > 0) { //se o count retornou 1 é que o usuário existe no SGBD
             retorno = true;
         }

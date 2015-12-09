@@ -21,7 +21,7 @@ public class CompeticaoService {
     public List<Competicao> listaTodos() {
         ArrayList<Competicao> listagem;
         Query sql = em.createQuery(
-                "select c from Competicao c inner join c.usuarios u", Competicao.class);
+                "select c from Competicao c", Competicao.class);
         listagem = (ArrayList<Competicao>) sql.getResultList();
         return listagem;
     }
@@ -32,7 +32,7 @@ public class CompeticaoService {
     public List<Competicao> listaPeloId(@PathParam("id") long id) {
         ArrayList<Competicao> listagem;
         Query sql = em.createQuery(
-                "select c from Competicao c inner join c.usuarios u where c.id = :id", Competicao.class);
+                "select c from Competicao c where c.id = :id", Competicao.class);
         sql.setParameter("id", id);
         listagem = (ArrayList<Competicao>) sql.getResultList();
         return listagem;

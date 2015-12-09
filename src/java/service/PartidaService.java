@@ -15,7 +15,7 @@ public class PartidaService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Partida> listaTodos(){
-        Query q = em.createQuery("select p from Partida p", Partida.class);
+        Query q = em.createQuery("select p from Partida p order by p.competicao, p.rodada", Partida.class);
         return q.getResultList();
     }
     
